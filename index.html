@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>חוקרת בעלי החיים</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;700;800&display=swap" rel="stylesheet">
+<style>
+/* VOICE: warm, playful, encouraging – a field notebook for an 8-year-old explorer
+   IDEA: an explorer's trail of leaves leading to a treasure chest
+   PICTURE: one big question card at a time, the leaf trail above it
+   COLOUR and TYPE: cream paper, forest green, sky blue, sun yellow; Rubik, large
+   LAYOUT: single centered column, max 640px, huge tap targets */
+:root{color-scheme:light;--bg:#fffaf0;--ink:#1f472c;--forest:#3f8f55;--forest-d:#2f7344;--forest-l:#dcefdf;--sky:#bae6fd;--sky-d:#0369a1;--sun:#fbcb22;--sun-l:#fff6cc;--card:#fff;--line:#e7dfc9;--soft:#6b7f70}
+*{box-sizing:border-box;min-width:0}
+html{font-size:18px}
+body{margin:0;min-height:100vh;font-family:'Rubik','Varela Round',system-ui,sans-serif;color:var(--ink);background:var(--bg);background-image:radial-gradient(circle at 8% 0%,rgba(186,230,253,.6) 0,transparent 38%),radial-gradient(circle at 100% 100%,rgba(220,239,223,.9) 0,transparent 45%);background-attachment:fixed;overflow-x:clip;-webkit-tap-highlight-color:transparent}
+button{font:inherit;color:inherit;cursor:pointer;-webkit-user-select:none;user-select:none;touch-action:manipulation}
+button:focus-visible{outline:4px solid var(--sky-d);outline-offset:3px}
+.wrap{max-width:640px;margin:0 auto;padding:0 16px 40px}
+header{position:-webkit-sticky;position:sticky;top:0;z-index:20;background:rgba(255,250,240,.92);-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px);border-bottom:2px solid var(--line)}
+.bar{max-width:640px;margin:0 auto;padding:10px 16px;display:flex;align-items:center}.bar>*+*{margin-right:10px}
+.brand{flex:1;font-weight:800;font-size:1.05rem}
+.icon-btn{min-width:52px;height:52px;border-radius:18px;border:2px solid var(--line);background:#fff;display:flex;align-items:center;justify-content:center;padding:0 12px;font-weight:700;font-size:1.05rem}
+#leafNum{margin-right:6px}.icon-btn:active{transform:scale(.95)}
+h1{font-size:2.1rem;font-size:clamp(1.8rem,7vw,2.5rem);line-height:1.1;margin:22px 0 6px;text-wrap:balance;font-weight:800}
+.lead{font-size:1.1rem;margin:0 0 18px;color:var(--soft)}
+.hero{display:flex;flex-direction:column;text-align:center;align-items:center;background:linear-gradient(135deg,#e0f2fe,#dcefdf);border-radius:28px;padding:18px;margin-top:16px;border:2px solid #cfe7d4}
+.hero .big{font-size:4rem;animation:floaty 2.6s ease-in-out infinite}
+.topics{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));grid-gap:12px;gap:12px}
+@media(max-width:380px){.topics{grid-template-columns:minmax(0,1fr)}}
+.topic{border:3px solid;border-radius:26px;padding:16px 12px;text-align:center;display:flex;flex-direction:column;align-items:center;box-shadow:0 4px 0 rgba(0,0,0,.08);position:relative;min-height:150px;justify-content:center}
+.topic:active{transform:translateY(3px);box-shadow:none}
+.topic .em{font-size:2.6rem;margin-bottom:6px}
+.topic b{font-size:1.15rem;margin-bottom:4px}
+.topic small{font-size:.85rem;color:var(--soft)}
+.done-chip{position:absolute;top:8px;left:8px;background:var(--sun);border-radius:999px;padding:2px 8px;font-size:.8rem;font-weight:700}
+.all{width:100%;margin:14px 0;background:var(--forest);color:#fff;border:0;border-radius:26px;padding:18px;font-size:1.3rem;font-weight:800;display:flex;align-items:center;justify-content:center;box-shadow:0 5px 0 var(--forest-d)}
+.all:active{transform:translateY(4px);box-shadow:none}
+/* trail */
+.trail{margin:16px 0 6px;display:flex;align-items:center}.chest{margin-right:8px}
+.track{position:relative;flex:1;height:18px;border-radius:999px;background:var(--forest-l);border:2px solid #b9dfc0}
+.fill{position:absolute;top:0;bottom:0;right:0;border-radius:999px;background:linear-gradient(90deg,#5fab72,#3f8f55);transition:width .5s}
+.bug{position:absolute;top:-17px;font-size:1.6rem;transition:right .5s;transform:translateX(50%)}
+.chest{font-size:2.2rem}
+.leaves{display:flex;flex-wrap:wrap;justify-content:center;font-size:1.15rem;margin-bottom:4px}
+.leaves span{transition:.3s;margin:0 1.5px}.leaves .off{filter:grayscale(1);opacity:.3}
+.count{text-align:center;color:var(--soft);font-size:.9rem;margin:2px 0 10px}
+/* card */
+.card{background:var(--card);border-radius:30px;border:3px solid var(--line);padding:20px 16px;box-shadow:0 6px 0 rgba(31,71,44,.08);animation:rise .35s ease-out both}
+.kind{display:inline-block;background:var(--sun-l);border:2px solid #ffec99;border-radius:999px;padding:4px 12px;font-size:.9rem;font-weight:700;margin-bottom:10px}
+.q-em{font-size:3rem;text-align:center;line-height:1.2}
+.prompt{font-size:1.35rem;font-weight:700;line-height:1.4;margin:6px 0 16px;text-wrap:balance}
+.opts{display:grid;grid-gap:10px;gap:10px}
+.opts.two{grid-template-columns:repeat(2,minmax(0,1fr))}
+.opt{background:#fff;border:3px solid #d6e9da;border-radius:22px;min-height:72px;padding:12px 14px;font-size:1.15rem;font-weight:700;display:flex;align-items:center;text-align:right;line-height:1.35;box-shadow:0 4px 0 #d6e9da}
+.opts.two .opt{flex-direction:column;justify-content:center;text-align:center;font-size:1.2rem}
+.opt .e{font-size:1.9rem;flex:none;margin-left:10px}.opts.two .opt .e{margin:0 0 4px}
+.opt:active{transform:translateY(3px);box-shadow:none}
+.opt.tried{opacity:.45;background:#f5f2ea;box-shadow:none}
+.opt.right{background:var(--forest-l);border-color:var(--forest);box-shadow:0 4px 0 var(--forest);animation:pop .35s}
+.glow{animation:glow 1.4s ease-in-out infinite;border-color:var(--sun)!important}
+.shake{animation:shake .45s ease-in-out}
+/* fill */
+.sentence{font-size:1.4rem;line-height:2.1;font-weight:500;margin:4px 0 18px}
+.blank{display:inline-block;min-width:5.5em;padding:0 10px;margin:0 4px;border-bottom:4px dashed var(--forest);border-radius:10px;background:#f6fbf7;text-align:center;font-weight:800;line-height:1.6}
+.blank.ok{background:var(--forest-l);border-bottom-style:solid}
+.blank.no{background:var(--sun-l);border-color:var(--sun)}
+.bank{display:flex;flex-wrap:wrap;justify-content:center;padding:9px;background:#f3f9f4;border-radius:22px;border:2px dashed #b9dfc0}
+.word{background:#fff;border:3px solid var(--sky);border-radius:18px;padding:10px 18px;font-size:1.2rem;font-weight:700;min-height:56px;margin:5px;box-shadow:0 4px 0 var(--sky)}
+.word:active{transform:translateY(3px);box-shadow:none}
+.word.used{opacity:.35;box-shadow:none}
+/* sort */
+.item{margin:0 auto 14px;max-width:280px;background:var(--sun-l);border:3px solid #ffec99;border-radius:26px;padding:14px;text-align:center}
+.item .e{font-size:3.2rem;display:block}
+.item b{font-size:1.4rem}
+.item small{display:block;color:var(--soft);font-size:.85rem;margin-top:4px}
+.cats{display:grid;grid-gap:10px;gap:10px;grid-template-columns:repeat(2,minmax(0,1fr))}
+.cats.c3{grid-template-columns:repeat(3,minmax(0,1fr))}
+.cat{background:#fff;border:3px solid #cfe2f3;border-radius:22px;padding:10px 6px;min-height:96px;display:flex;flex-direction:column;align-items:center;box-shadow:0 4px 0 #cfe2f3}
+.cat:active{transform:translateY(3px);box-shadow:none}
+.cat .e{font-size:2rem}
+.cat b{font-size:1.05rem;text-align:center;line-height:1.25}
+.chips{margin-top:4px;display:flex;flex-wrap:wrap;justify-content:center;font-size:1.2rem;min-height:1.4rem}
+.cats.c5 .cat:last-child{grid-column:1/-1}
+/* feedback */
+.hint{margin-top:14px;background:var(--sun-l);border:3px solid #ffdd55;border-radius:22px;padding:12px 14px;font-size:1.1rem;display:flex;align-items:flex-start;animation:rise .3s both}
+.hint .e{font-size:1.6rem;margin-left:10px}
+.good{margin-top:14px;background:var(--forest-l);border:3px solid var(--forest);border-radius:24px;padding:14px;text-align:center;animation:rise .3s both}
+.good .p{font-size:1.4rem;font-weight:800}
+.good .x{font-size:1rem;margin:6px 0 2px;line-height:1.45}
+.next{margin-top:12px;width:100%;background:var(--forest);color:#fff;border:0;border-radius:22px;min-height:64px;font-size:1.3rem;font-weight:800;box-shadow:0 5px 0 var(--forest-d)}
+.next:active{transform:translateY(4px);box-shadow:none}
+.ghost{margin-top:10px;width:100%;background:#fff;border:3px solid var(--line);border-radius:22px;min-height:56px;font-size:1.1rem;font-weight:700}
+.end{text-align:center;padding:26px 16px}
+.end .big{font-size:5rem;animation:floaty 2.4s ease-in-out infinite}
+.end h2{font-size:1.8rem;margin:8px 0;text-wrap:balance}
+.end p{font-size:1.15rem;margin:6px 0}
+.badge{display:inline-block;background:var(--sun-l);border:3px solid var(--sun);border-radius:999px;padding:8px 16px;font-weight:800;font-size:1.15rem;margin:10px 0}
+/* modal */
+.modal{position:fixed;top:0;right:0;bottom:0;left:0;z-index:50;background:rgba(31,71,44,.45);display:flex;align-items:flex-end;justify-content:center;padding:12px}
+.sheet{background:var(--bg);width:100%;max-width:560px;max-height:88vh;overflow:auto;border-radius:30px;padding:20px;animation:rise .3s both}
+.sheet h2{margin:0 0 6px;font-size:1.5rem}
+.leafcount{font-size:1.4rem;font-weight:800;background:#fff;border-radius:20px;padding:12px;text-align:center;border:2px solid var(--line);margin:10px 0}
+.badges{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));grid-gap:10px;gap:10px}
+.bd{background:#fff;border:3px solid var(--line);border-radius:20px;padding:12px 8px;text-align:center}
+.bd .e{font-size:2.2rem;display:block}
+.bd.off .e{filter:grayscale(1);opacity:.35}
+.bd.off{color:var(--soft)}
+.bd.on{border-color:var(--sun);background:var(--sun-l)}
+.reset{background:none;border:0;color:var(--soft);text-decoration:underline;font-size:.9rem;margin-top:14px;min-height:44px}
+#fx{position:fixed;top:0;left:0;pointer-events:none;z-index:60;width:100%;height:100%}
+@keyframes shake{0%,100%{transform:translateX(0)}20%{transform:translateX(-8px)}40%{transform:translateX(8px)}60%{transform:translateX(-5px)}80%{transform:translateX(5px)}}
+@keyframes pop{50%{transform:scale(1.06)}}
+@keyframes floaty{50%{transform:translateY(-7px)}}
+@keyframes glow{0%,100%{box-shadow:0 0 0 0 rgba(251,203,34,0)}50%{box-shadow:0 0 0 8px rgba(251,203,34,.55)}}
+@keyframes rise{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+<header><div class="bar">
+  <div class="brand">🐾 חוקרת בעלי החיים</div>
+  <button class="icon-btn" id="bagBtn" aria-label="התיק שלי">🎒 <span id="leafNum">0</span></button>
+  <button class="icon-btn" id="muteBtn" aria-label="השתקה">🔊</button>
+</div></header>
+<main class="wrap" id="app"></main>
+<canvas id="fx"></canvas>
+<script>
+window.onerror=function(m,src,l,c){var a=document.getElementById('app');if(a)a.innerHTML='<div style="background:#fff6cc;border:3px solid #fbcb22;border-radius:20px;padding:16px;margin-top:20px;font-size:16px;direction:ltr;text-align:left;word-break:break-word"><b style="display:block;direction:rtl;text-align:right;font-size:18px;margin-bottom:8px">אופס, משהו לא נטען 🙈 צלמי את המסך ושלחי</b>'+String(m).replace(/</g,'&lt;')+' (line '+l+':'+c+')</div>'};
+</script>
+<script>
+(function(){
+'use strict';
+// ---------- נתונים מתוך דף העבודה: "חזרה בטבע – כיתה ד' – בעלי החיים" ----------
+const TOPICS=[
+{id:'around',title:'בעלי חיים סביבנו',emoji:'🐾',desc:'מי גר איפה?',bg:'#fffbeb',bd:'#fcd34d',badge:'חוקרת השכונה',questions:[
+ {id:'a1',type:'sort',prompt:'בעל חיים או לא? מייני כל אחד לקבוצה הנכונה',hint:'בעל חיים אוכל, נושם, גדל וזז ממקום למקום',
+  cats:[{id:'yes',l:'בעל חיים',e:'🐾'},{id:'no',l:'לא בעל חיים',e:'🚫'}],
+  items:[{t:'נמלה',e:'🐜',c:'yes'},{t:'עץ',e:'🌳',c:'no',h:'עץ הוא צמח – הוא חי, אבל הוא לא בעל חיים'},{t:'יונה',e:'🕊️',c:'yes'},{t:'אבן',e:'⛰️',c:'no',h:'אבן לא אוכלת, לא נושמת ולא גדלה'},{t:'חתול',e:'🐈',c:'yes'},{t:'פרח',e:'🌸',c:'no',h:'פרח הוא צמח, לא בעל חיים'},{t:'יתוש',e:'🦟',c:'yes',h:'גם חרק קטן הוא בעל חיים!'},{t:'ענן',e:'☁️',c:'no'}]},
+ {id:'a2',type:'sort',prompt:'איפה אפשר למצוא כל בעל חיים בסביבה שלנו?',hint:'חשבי איפה ראית את בעל החיים הזה',
+  cats:[{id:'air',l:'באוויר',e:'🌤️'},{id:'tree',l:'על העץ',e:'🌳'},{id:'ground',l:'באדמה',e:'⛏️'},{id:'water',l:'במים',e:'💧'},{id:'flower',l:'בפרחים',e:'🌸'}],
+  items:[{t:'יונה',e:'🕊️',c:'air',h:'היונה עפה בשמיים'},{t:'סנאי',e:'🐿️',c:'tree',h:'הסנאי מטפס על ענפים ומחביא בהם אגוזים'},{t:'נמלה',e:'🐜',c:'ground',h:'הנמלים חופרות קן מתחת לאדמה'},{t:'דג באקווריום',e:'🐟',c:'water',h:'דג חי רק בתוך מים'},{t:'דבורה',e:'🐝',c:'flower',h:'הדבורה אוספת צוף מהפרחים'}]},
+ {id:'a3',type:'mc',e:'🔍',prompt:'איזה מאלה הוא בעל חיים שאפשר לפגוש בשכונה?',opts:[['חתול','🐈'],['שולחן','🍽️'],['עץ','🌳'],['אבן','⛰️']],ok:'חתול',hint:'רק אחד מהם יכול לזוז, לאכול ולגדול'},
+ {id:'a4',type:'mc',e:'🌳',prompt:'איזה מהמקומות האלה הוא מקום שבו נמצאים בעלי חיים?',opts:[['כל התשובות נכונות','✅'],['על העץ','🌳'],['באדמה','⛏️'],['באוויר','🌤️']],ok:'כל התשובות נכונות',hint:'בעלי חיים נמצאים כמעט בכל מקום סביבנו…'}
+]},
+{id:'needs',title:'מה צריך כדי לחיות?',emoji:'💧',desc:'הצרכים של בעלי החיים',bg:'#f0f9ff',bd:'#7dd3fc',badge:'מומחית הצרכים',questions:[
+ {id:'n1',type:'sort',prompt:'מה בעל חיים צריך כדי לחיות?',hint:'חשבי מה יקרה לבעל החיים בלי הדבר הזה',
+  cats:[{id:'need',l:'צריך כדי לחיות',e:'✅'},{id:'not',l:'לא צריך',e:'❌'}],
+  items:[{t:'אוויר',e:'💨',c:'need',h:'בלי אוויר אי אפשר לנשום'},{t:'מים',e:'💧',c:'need'},{t:'מזון',e:'🥕',c:'need'},{t:'טלוויזיה',e:'📺',c:'not',h:'בעלי חיים חיו מצוין לפני שהיו טלוויזיות 😉'},{t:'מקום מחיה',e:'🏡',c:'need',h:'כל בעל חיים צריך מקום לגור בו ולהסתתר'},{t:'צעצועים',e:'🧸',c:'not'},{t:'טמפרטורה מתאימה',e:'🌡️',c:'need',h:'כשקר מדי או חם מדי – קשה לבעל החיים לחיות'},{t:'כסף',e:'💰',c:'not'}]},
+ {id:'n2',type:'fill',s:'בעלי החיים צריכים ___ כדי לנשום.',words:['אוויר','צעצועים','שמש'],ok:'אוויר',hint:'מה נכנס לנו לאף כשאנחנו נושמות?'},
+ {id:'n3',type:'mc',e:'🛡️',prompt:'למה בעל חיים צריך הגנה ומחסה?',opts:[['כדי להסתתר מאויבים ומגשם וקור','🛡️'],['כדי שיהיה לו יפה','🎀'],['כדי לשחק','⚽'],['הוא לא צריך','🤷']],ok:'כדי להסתתר מאויבים ומגשם וקור',hint:'חשבי על ארנב שבורח לתוך המחילה שלו…'},
+ {id:'n4',type:'mc',e:'🌱',prompt:'אילו שלושה דברים הסביבה צריכה לתת לבעל חיים כדי שיגדל?',opts:[['מים, מזון ומחסה','💧'],['צעצועים, מים ושמיכה','🧸'],['ממתקים, ספרים ומים','🍬'],['רק אוויר','💨']],ok:'מים, מזון ומחסה',hint:'מה הוא שותה, מה הוא אוכל ואיפה הוא מסתתר?'}
+]},
+{id:'life',title:'מאפייני החיים',emoji:'✨',desc:'איך יודעים שמשהו חי?',bg:'#f0fdf4',bd:'#86efac',badge:'בלשית החיים',questions:[
+ {id:'l1',type:'mc',e:'🐶',prompt:'גור קטן הופך לכלב גדול. איזה מאפיין חיים זה?',opts:[['גדילה','📏'],['תנועה','🏃'],['תקשורת','💬'],['התרבות','🥚']],ok:'גדילה',hint:'הגור נעשה גדול יותר…'},
+ {id:'l2',type:'mc',e:'🐔',prompt:'התרנגולת מטילה ביצים ומהן בוקעים אפרוחים. איזה מאפיין חיים זה?',opts:[['התרבות','🥚'],['גדילה','📏'],['הזנה','🍽️'],['תנועה','🏃']],ok:'התרבות',hint:'נולדים בעלי חיים חדשים – יש יותר מהם!'},
+ {id:'l3',type:'mc',e:'🐄',prompt:'הפרה אוכלת עשב. איזה מאפיין חיים זה?',opts:[['הזנה','🍽️'],['תקשורת','💬'],['התרבות','🥚'],['גדילה','📏']],ok:'הזנה',hint:'מה הפרה עושה עם העשב?'},
+ {id:'l4',type:'mc',e:'🐦',prompt:'הציפור שרה כדי לקרוא לחברות שלה. איזה מאפיין חיים זה?',opts:[['תקשורת','💬'],['הזנה','🍽️'],['גדילה','📏'],['התרבות','🥚']],ok:'תקשורת',hint:'הציפור מעבירה מסר לציפורים אחרות'},
+ {id:'l7',type:'mc',e:'🔍',prompt:'איזה מאלה הוא לא אחד מחמשת מאפייני החיים שלמדנו?',opts:[['צבע','🎨'],['תקשורת','💬'],['גדילה','📏'],['תנועה','🏃']],ok:'צבע',hint:'חמשת המאפיינים: תקשורת, גדילה, התרבות, הזנה ותנועה'},
+ {id:'l5',type:'fill',s:'חמשת מאפייני החיים הם: תקשורת, גדילה, התרבות, הזנה ו___.',words:['תנועה','שינה','צבע'],ok:'תנועה',hint:'הולכים, עפים, שוחים או זוחלים…'},
+ {id:'l6',type:'sort',prompt:'התאימי כל תמונה למאפיין החיים שלה',hint:'שאלי את עצמך: מה בעל החיים עושה כאן?',
+  cats:[{id:'grow',l:'גדילה',e:'📏'},{id:'rep',l:'התרבות',e:'🥚'},{id:'food',l:'הזנה',e:'🍽️'},{id:'move',l:'תנועה',e:'🏃'},{id:'talk',l:'תקשורת',e:'💬'}],
+  items:[{t:'הציפור עפה',e:'🐦',c:'move'},{t:'הזאב מיילל ללהקה',e:'🐺',c:'talk',h:'הזאב מעביר מסר לזאבים האחרים'},{t:'הקוף אוכל בננה',e:'🐒',c:'food'},{t:'לחתולה נולדו גורים',e:'🐈',c:'rep'},{t:'האפרוח נעשה תרנגול',e:'🐓',c:'grow'},{t:'הדג שוחה',e:'🐟',c:'move'},{t:'הארנב מכרסם גזר',e:'🐇',c:'food'}]}
+]},
+{id:'breath',title:'נשימה וחמצן',emoji:'💨',desc:'מאיפה לוקחים חמצן?',bg:'#ecfeff',bd:'#67e8f9',badge:'אלופת החמצן',questions:[
+ {id:'b1',type:'mc',e:'💨',prompt:'מאילו שני מקומות בעלי החיים קולטים חמצן?',opts:[['מהאוויר ומהמים','🌊'],['מהאוכל ומהשמש','☀️'],['מהאדמה ומהאבנים','⛰️'],['מהעננים ומהגשם','🌧️']],ok:'מהאוויר ומהמים',hint:'חלק מבעלי החיים חיים ביבשה וחלק בים…'},
+ {id:'b2',type:'sort',prompt:'מאיפה כל בעל חיים קולט חמצן?',hint:'מי שחי ביבשה נושם אוויר. מי שחי כל הזמן מתחת למים לוקח חמצן מהמים',
+  cats:[{id:'air',l:'מהאוויר',e:'🌤️'},{id:'water',l:'מהמים (חמצן מומס)',e:'🌊'}],
+  items:[{t:'תרנגול',e:'🐓',c:'air'},{t:'דג',e:'🐟',c:'water'},{t:'כלב',e:'🐕',c:'air'},{t:'כריש',e:'🦈',c:'water'},{t:'ציפור',e:'🐦',c:'air'},{t:'תמנון',e:'🐙',c:'water'},{t:'דולפין',e:'🐬',c:'air',h:'הפתעה! הדולפין חי בים, אבל עולה למעלה כדי לנשום אוויר'}]},
+ {id:'b3',type:'fill',s:'הדג קולט את החמצן ה___ במים.',words:['מומס','קפוא','צבעוני'],ok:'מומס',hint:'החמצן מתערבב במים ולא רואים אותו – כמו סוכר שמתמוסס'},
+ {id:'b4',type:'mc',e:'🦈',prompt:'איזה בעל חיים קולט את החמצן המומס במים?',opts:[['כריש','🦈'],['תרנגול','🐓'],['כלב','🐕'],['ציפור','🐦']],ok:'כריש',hint:'מי מהם חי כל הזמן מתחת למים?'}
+]},
+{id:'food',title:'מי אוכל מה?',emoji:'🍽️',desc:'קבוצות המזון',bg:'#fff7ed',bd:'#fdba74',badge:'מומחית המזון',questions:[
+ {id:'f1',type:'mc',e:'🍽️',prompt:'מהן שלוש הקבוצות של בעלי החיים לפי סוג המזון?',opts:[['צמחוניים, אוכלי כל ואוכלי בשר','🍽️'],['גדולים, בינוניים וקטנים','📏'],['עפים, שוחים והולכים','🐦'],['חמודים, מפחידים ומצחיקים','😄']],ok:'צמחוניים, אוכלי כל ואוכלי בשר',hint:'השאלה היא על מה שהם אוכלים'},
+ {id:'f2',type:'sort',prompt:'מייני את בעלי החיים לפי מה שהם אוכלים',hint:'צמחוני אוכל רק צמחים. אוכל בשר טורף בעלי חיים אחרים. אוכל כל אוכל גם וגם',
+  cats:[{id:'veg',l:'צמחוניים',e:'🌿'},{id:'all',l:'אוכלי כל',e:'🍽️'},{id:'meat',l:'אוכלי בשר',e:'🥩'}],
+  items:[{t:'פרה',e:'🐄',c:'veg',h:'הפרה אוכלת עשב כל היום'},{t:'אריה',e:'🦁',c:'meat',h:'האריה צד בעלי חיים אחרים'},{t:'אדם',e:'🧑',c:'all',h:'אנחנו אוכלים גם ירקות וגם בשר'},{t:'ארנב',e:'🐇',c:'veg'},{t:'זאב',e:'🐺',c:'meat'},{t:'דוב',e:'🐻',c:'all',h:'הדוב אוכל דגים, אבל גם פירות יער ודבש'},{t:'ג׳ירפה',e:'🦒',c:'veg',h:'הג׳ירפה אוכלת עלים מצמרות העצים'},{t:'כריש',e:'🦈',c:'meat'},{t:'תרנגולת',e:'🐔',c:'all',h:'התרנגולת אוכלת גרעינים, אבל גם תולעים וחרקים'}]},
+ {id:'f3',type:'mc',e:'🧑',prompt:'לאיזו קבוצת מזון שייך האדם?',opts:[['אוכלי כל','🍽️'],['צמחוניים','🌿'],['אוכלי בשר','🥩'],['אוכלי ממתקים','🍬']],ok:'אוכלי כל',hint:'מה יש לנו בצלחת? גם ירקות, גם עוף…'},
+ {id:'f4',type:'fill',s:'ארנב אוכל גזר, עשב ועלים – לכן הוא ___.',words:['צמחוני','אוכל בשר','אוכל כל'],ok:'צמחוני',hint:'כל מה שהוא אוכל מגיע מצמחים'}
+]},
+{id:'move',title:'תנועה והגנה',emoji:'🦔',desc:'איך זזים ואיך מתגוננים?',bg:'#fff1f2',bd:'#fda4af',badge:'אלופת ההגנה',questions:[
+ {id:'m1',type:'sort',prompt:'איך כל בעל חיים זז ממקום למקום?',hint:'דמייני את בעל החיים בתנועה',
+  cats:[{id:'walk',l:'הליכה',e:'🐾'},{id:'crawl',l:'זחילה',e:'〰️'},{id:'swim',l:'שחייה',e:'🌊'},{id:'fly',l:'תעופה',e:'🌤️'},{id:'jump',l:'קפיצה',e:'⤴️'}],
+  items:[{t:'נחש',e:'🐍',c:'crawl',h:'לנחש אין רגליים – הוא מתפתל על הבטן'},{t:'כלב',e:'🐕',c:'walk'},{t:'דג',e:'🐟',c:'swim'},{t:'ציפור',e:'🐦',c:'fly'},{t:'צפרדע',e:'🐸',c:'jump',h:'לצפרדע רגליים אחוריות חזקות'},{t:'קנגורו',e:'🦘',c:'jump'},{t:'חילזון',e:'🐌',c:'crawl',h:'החילזון מחליק לאט על הרגל הרכה שלו'}]},
+ {id:'m2',type:'mc',e:'🦔',prompt:'איך הקיפוד מגן על עצמו מאויבים?',opts:[['קוצים','🌵'],['הוא עף','🌤️'],['הוא שוחה','🌊'],['הוא שר','🎵']],ok:'קוצים',hint:'נסי לגעת בקיפוד… אאוץ׳!'},
+ {id:'m3',type:'mc',e:'🦎',prompt:'הזיקית משנה את הצבע שלה לצבע של הענף. איך קוראים להגנה הזאת?',opts:[['הסוואה','🍃'],['קוצים','🌵'],['שריון','🐢'],['ארס','🐍']],ok:'הסוואה',hint:'היא "מתחפשת" לסביבה כדי שלא יראו אותה'},
+ {id:'m4',type:'mc',e:'🦌',prompt:'איך הצבי מגן על עצמו כשמגיע טורף?',opts:[['בורח מהר מאוד','💨'],['מסתתר בתוך שריון','🐢'],['משנה צבע','🎨'],['עוקץ','🐝']],ok:'בורח מהר מאוד',hint:'לצבי יש רגליים ארוכות וחזקות…'},
+ {id:'m5',type:'fill',s:'כשבעל חיים נראה כמו הסביבה שלו ולא רואים אותו – זו ___.',words:['הסוואה','זחילה','התרבות'],ok:'הסוואה',hint:'כמו הזיקית על הענף 🦎'},
+ {id:'m6',type:'mc',e:'🐢',prompt:'איך הצב מגן על עצמו?',opts:[['מכניס את הראש לתוך השריון','🐢'],['בורח מהר מאוד','💨'],['עף לעץ','🌳'],['נובח','🐕']],ok:'מכניס את הראש לתוך השריון',hint:'הצב איטי – אבל יש לו בית קשה על הגב'}
+]},
+{id:'talk',title:'תקשורת ומשפחה',emoji:'💬',desc:'איך בעלי חיים "מדברים"?',bg:'#f5f3ff',bd:'#c4b5fd',badge:'מתרגמת שפת החיות',questions:[
+ {id:'t1',type:'sort',prompt:'איך כל בעל חיים מעביר מסר לאחרים?',hint:'שאלי: הוא משמיע משהו? מריח? מראה צבעים? או זז בדרך מיוחדת?',
+  cats:[{id:'sound',l:'קולות',e:'🔊'},{id:'smell',l:'ריחות',e:'👃'},{id:'color',l:'צבעים',e:'🎨'},{id:'moves',l:'תנועות',e:'💃'},{id:'touch',l:'מגע',e:'🤝'}],
+  items:[{t:'ציפור שרה',e:'🐦',c:'sound'},{t:'נמלה משאירה שביל ריח',e:'🐜',c:'smell',h:'הנמלים הולכות אחת אחרי השנייה בעקבות הריח'},{t:'טווס פורש זנב צבעוני',e:'🦚',c:'color'},{t:'דבורה רוקדת כדי להראות איפה הפרחים',e:'🐝',c:'moves',h:'הדבורה לא מדברת – היא רוקדת!'},{t:'זאב מיילל',e:'🐺',c:'sound'},{t:'כלב מכשכש בזנב',e:'🐕',c:'moves'},{t:'קופים מסרקים זה את הפרווה של זה',e:'🐒',c:'touch',h:'הם נוגעים זה בזה כדי להראות שהם חברים'}]},
+ {id:'t5',type:'fill',s:'קולות, ריחות, צבעים, תנועות ו___ – אלה הדרכים שבהן בעלי חיים מתקשרים.',words:['מגע','שינה','אוכל'],ok:'מגע',hint:'כשחתולה מלקקת את הגורים שלה, היא…'},
+ {id:'t2',type:'mc',e:'🐕',prompt:'כלב מכשכש בזנב. מה הוא מנסה לומר?',opts:[['אני שמח!','😄'],['אני רעב','🍖'],['אני עייף','😴'],['קר לי','❄️']],ok:'אני שמח!',hint:'מתי ראית כלב מכשכש? כשבאים לשחק איתו…'},
+ {id:'t3',type:'mc',e:'🐣',prompt:'מה היה קורה אילו בעלי החיים לא היו מטפלים בגורים שלהם?',opts:[['הגורים לא היו שורדים – אין להם מזון ולא יודעים להגן על עצמם','😢'],['הגורים היו גדלים מהר יותר','📏'],['שום דבר לא היה קורה','😐'],['הגורים היו עפים','🌤️']],ok:'הגורים לא היו שורדים – אין להם מזון ולא יודעים להגן על עצמם',hint:'גור קטן עוד לא יודע להשיג אוכל לבד'},
+ {id:'t4',type:'mc',e:'🌍',prompt:'למה חשוב שיהיו הרבה סוגים שונים של בעלי חיים בטבע?',opts:[['כי הם תלויים זה בזה ושומרים על איזון בטבע','⚖️'],['כי זה יותר צבעוני','🌈'],['כדי שיהיו יותר צעצועים','🧸'],['זה לא חשוב','🤷']],ok:'כי הם תלויים זה בזה ושומרים על איזון בטבע',hint:'נזכרי: מי אוכל את מי? אם סוג אחד נעלם – גם לאחרים קשה',x:'לדוגמה: בלי דבורים פחות פרחים ופירות, ובלי פרחים לדבורים אין מזון.'}
+]}
+];
+const ALL={id:'all',title:'כל המסע יחד',emoji:'🗺️',badge:'חוקרת בעלי החיים'};
+const PRAISE=['כל הכבוד! 🌟','מדהים! את חוקרת אמיתית! 🔍','יופי של תשובה! 🌈','נהדר! ממשיכות במסע! 🦋','איזו חכמה! 💡','מושלם! 🌻','וואו, ידעת! ⭐'];
+const ALMOST=['כמעט!','ניסיון יפה!','עוד קצת!','את בכיוון!'];
+
+// ---------- שמירה מקומית ----------
+const KEY='animal-explorer-v1';
+let save={leaves:0,done:[],muted:false};
+try{const s=JSON.parse(localStorage.getItem(KEY));if(s)save=Object.assign({},save,s)}catch(e){}
+const persist=()=>{try{localStorage.setItem(KEY,JSON.stringify(save))}catch(e){}};
+
+// ---------- צלילים (Web Audio) ----------
+let ac=null;
+function tone(f,st,d,type='triangle',v=.12){try{if(!ac){const A=window.AudioContext||window.webkitAudioContext;if(!A)return;ac=new A()}if(ac.state==='suspended')ac.resume();const t=ac.currentTime+st,o=ac.createOscillator(),g=ac.createGain();o.type=type;o.frequency.setValueAtTime(f,t);g.gain.setValueAtTime(.0001,t);g.gain.exponentialRampToValueAtTime(v,t+.02);g.gain.exponentialRampToValueAtTime(.0001,t+d);o.connect(g);g.connect(ac.destination);o.start(t);o.stop(t+d+.05)}catch(e){}}
+const snd={
+ tap:()=>!save.muted&&tone(660,0,.08,'triangle',.07),
+ pop:()=>{if(save.muted)return;tone(784,0,.1);tone(1046,.07,.14)},
+ ok:()=>{if(save.muted)return;[523,659,784,1046].forEach((f,i)=>tone(f,i*.09,.28))},
+ no:()=>{if(save.muted)return;tone(392,0,.18,'sine',.08);tone(330,.15,.28,'sine',.07)},
+ win:()=>{if(save.muted)return;[523,659,784,659,784,1046,1318].forEach((f,i)=>tone(f,i*.12,.32))}
+};
+
+// ---------- קונפטי וכוכבים ----------
+const cv=document.getElementById('fx'),cx=cv.getContext('2d');let parts=[],raf=0;
+const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
+function burst(n=60){if(reduce)return;cv.width=innerWidth;cv.height=innerHeight;const cols=['#fbcb22','#3f8f55','#7dd3fc','#fb923c','#f472b6','#a78bfa'];for(let i=0;i<n;i++){const a=Math.random()*Math.PI*2,sp=4+Math.random()*7;parts.push({x:innerWidth/2,y:innerHeight*.45,vx:Math.cos(a)*sp,vy:Math.sin(a)*sp-5,r:5+Math.random()*6,c:cols[i%cols.length],star:Math.random()<.45,rot:Math.random()*6,life:90+Math.random()*40})}if(!raf)loop()}
+function star(x,y,r){cx.beginPath();for(let i=0;i<10;i++){const rr=i%2?r/2.2:r,a=i*Math.PI/5-Math.PI/2;cx.lineTo(x+Math.cos(a)*rr,y+Math.sin(a)*rr)}cx.closePath();cx.fill()}
+function loop(){cx.clearRect(0,0,cv.width,cv.height);parts=parts.filter(p=>p.life-->0);for(const p of parts){p.vy+=.22;p.vx*=.99;p.x+=p.vx;p.y+=p.vy;p.rot+=.1;cx.globalAlpha=Math.min(1,p.life/30);cx.fillStyle=p.c;if(p.star)star(p.x,p.y,p.r);else{cx.save();cx.translate(p.x,p.y);cx.rotate(p.rot);cx.fillRect(-p.r/2,-p.r/4,p.r,p.r/2);cx.restore()}}cx.globalAlpha=1;raf=parts.length?requestAnimationFrame(loop):0;if(!raf)cx.clearRect(0,0,cv.width,cv.height)}
+function bigBurst(){burst(90);setTimeout(()=>burst(70),350);setTimeout(()=>burst(70),700)}
+
+// ---------- עזרים ----------
+const app=document.getElementById('app');
+const shuffle=a=>{a=[...a];for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a};
+const esc=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const pick=a=>a[Math.floor(Math.random()*a.length)];
+function shakeEl(el){if(!el)return;el.classList.remove('shake');void el.offsetWidth;el.classList.add('shake')}
+function updHeader(){document.getElementById('leafNum').textContent=save.leaves;const m=document.getElementById('muteBtn');m.textContent=save.muted?'🔇':'🔊';m.setAttribute('aria-label',save.muted?'הפעלת צלילים':'השתקת צלילים')}
+
+// ---------- מסך הבית ----------
+function home(){
+ S=null;
+ app.innerHTML=`<div class="hero"><div class="big">🦉</div><div><h1>חוקרת בעלי החיים</h1><p class="lead" style="margin:0">בחרי נושא ויוצאים למסע! כל תשובה נכונה = עלה זהב לתיק 🍂</p></div></div>
+ <button class="all" data-t="all">🗺️ כל המסע יחד ${save.done.includes('all')?'🏆':''}</button>
+ <div class="topics">${TOPICS.map(t=>`<button class="topic" data-t="${t.id}" style="background:${t.bg};border-color:${t.bd}">${save.done.includes(t.id)?'<span class="done-chip">🏅 הושלם</span>':''}<span class="em">${t.emoji}</span><b>${esc(t.title)}</b><small>${esc(t.desc)} · ${t.questions.length} שאלות</small></button>`).join('')}</div>`;
+ app.querySelectorAll('[data-t]').forEach(b=>b.onclick=()=>{snd.tap();start(b.dataset.t)});
+ scrollTo(0,0);
+}
+
+// ---------- מצב סבב ----------
+let S=null;
+function start(id){
+ const topic=id==='all'?Object.assign({},ALL,{questions:TOPICS.reduce((a,t)=>a.concat(t.questions),[])}):TOPICS.find(t=>t.id===id);
+ S={topic,queue:topic.questions,idx:0,missed:[],fixing:false,leaves:0};
+ newQ();
+}
+function newQ(){S.wrongs=0;S.solved=false;S.hint=null;S.st={};const q=S.queue[S.idx];
+ if(q.type==='mc')S.st={opts:shuffle(q.opts),tried:[]};
+ if(q.type==='fill')S.st={words:shuffle(q.words),used:[],placed:null,status:''};
+ if(q.type==='sort')S.st={items:shuffle(q.items),i:0,placed:{},iw:0};
+ render();scrollTo(0,0)}
+
+function trail(){const tot=S.queue.length,done=S.idx+(S.solved?1:0),pct=tot?done/tot*100:0;
+ return `${tot<=16?`<div class="leaves" aria-hidden="true">${S.queue.map((_,i)=>`<span class="${i<done?'':'off'}">${i<done?'🍂':'🍃'}</span>`).join('')}</div>`:''}
+ <div class="trail"><div class="track"><div class="fill" style="width:${pct}%"></div><span class="bug" style="right:${pct}%">🐞</span></div><span class="chest">${done===tot?'🎁':'🧰'}</span></div>
+ <div class="count">${S.fixing?'סבב תיקון · ':''}שאלה ${Math.min(S.idx+1,tot)} מתוך ${tot}</div>`}
+
+function render(){
+ const q=S.queue[S.idx],st=S.st;let body='',kind='';
+ if(q.type==='mc'){kind='👆 בחרי את התשובה הנכונה';const two=st.opts.every(o=>o[0].length<=14);
+  body=`<div class="q-em">${q.e||''}</div><div class="prompt">${esc(q.prompt)}</div><div class="opts ${two?'two':''}">${st.opts.map((o,i)=>{const right=S.solved&&o[0]===q.ok,tried=st.tried.includes(o[0]),glow=!S.solved&&S.wrongs>=2&&o[0]===q.ok;return `<button class="opt ${right?'right':''} ${tried?'tried':''} ${glow?'glow':''}" data-i="${i}" ${tried||S.solved?'aria-disabled="true"':''}><span class="e">${o[1]}</span><span>${esc(o[0])}</span></button>`}).join('')}</div>`}
+ if(q.type==='fill'){kind='✏️ השלימי את המשפט';const [a,b]=q.s.split('___');const cls=st.status==='ok'?'ok':st.status==='no'?'no':'';
+  body=`<div class="sentence">${esc(a)}<span class="blank ${cls}" id="blank">${st.placed?esc(st.placed):'&nbsp;'}</span>${esc(b)}</div><div class="bank">${st.words.map((w,i)=>{const used=st.used.includes(w)||(S.solved&&w===q.ok)||st.placed===w,glow=!S.solved&&S.wrongs>=2&&w===q.ok;return `<button class="word ${used?'used':''} ${glow?'glow':''}" data-i="${i}">${esc(w)}</button>`}).join('')}</div>`}
+ if(q.type==='sort'){kind='🧺 מייני לקבוצות';const it=st.items[st.i];const n=q.cats.length;
+  body=`<div class="prompt">${esc(q.prompt)}</div>${it?`<div class="item" id="item"><span class="e">${it.e}</span><b>${esc(it.t)}</b><small>פריט ${st.i+1} מתוך ${st.items.length} · לאיזו קבוצה זה שייך?</small></div>`:`<div class="item"><span class="e">🧺</span><b>מיינת הכל!</b></div>`}
+  <div class="cats ${n===3?'c3':''} ${n===5?'c5':''}">${q.cats.map(c=>{const glow=it&&st.iw>=2&&c.id===it.c;return `<button class="cat ${glow?'glow':''}" data-c="${c.id}"><span class="e">${c.e}</span><b>${esc(c.l)}</b><span class="chips">${(st.placed[c.id]||[]).join('')}</span></button>`}).join('')}</div>`}
+ const fb=S.solved?`<div class="good" role="status"><div class="p">${S.praise}</div>${q.x?`<div class="x">${esc(q.x)}</div>`:''}<div class="x">קיבלת עלה זהב לתיק! 🍂</div><button class="next" id="next">${S.idx+1<S.queue.length?'לשאלה הבאה ←':'לתיבת האוצר! 🎁'}</button></div>`
+  :S.hint?`<div class="hint" role="status"><span class="e">💡</span><div><b>${S.hint[0]}</b> ${esc(S.hint[1])}</div></div>`:'';
+ app.innerHTML=`${trail()}<div class="card" id="card"><span class="kind">${kind}</span>${body}${fb}</div><button class="ghost" id="home">🏠 חזרה למפה</button>`;
+ bind(q)}
+
+function bind(q){
+ document.getElementById('home').onclick=()=>{snd.tap();home()};
+ const nx=document.getElementById('next');if(nx){nx.onclick=next;nx.focus({preventScroll:true})}
+ if(S.solved)return;const st=S.st;
+ if(q.type==='mc')app.querySelectorAll('.opt').forEach(b=>b.onclick=()=>{const o=st.opts[+b.dataset.i];if(st.tried.includes(o[0]))return;snd.tap();
+  if(o[0]===q.ok)solve();else{st.tried.push(o[0]);wrong(q.hint);shakeEl(app.querySelector(`.opt[data-i="${b.dataset.i}"]`))}});
+ if(q.type==='fill')app.querySelectorAll('.word').forEach(b=>b.onclick=()=>{const w=st.words[+b.dataset.i];if(st.placed||st.used.includes(w))return;snd.tap();st.placed=w;
+  if(w===q.ok){st.status='ok';solve()}else{st.status='no';wrong(q.hint);shakeEl(document.getElementById('blank'));setTimeout(()=>{if(S&&S.st===st){st.placed=null;st.status='';st.used.push(w);render()}},900)}});
+ if(q.type==='sort')app.querySelectorAll('.cat').forEach(b=>b.onclick=()=>{const it=st.items[st.i];if(!it)return;snd.tap();
+  if(b.dataset.c===it.c){(st.placed[it.c]=st.placed[it.c]||[]).push(it.e);st.i++;st.iw=0;S.hint=null;if(st.i>=st.items.length)solve();else{snd.pop();render()}}
+  else{st.iw++;wrong(it.h||q.hint);shakeEl(document.getElementById('item'))}});
+}
+function wrong(h){snd.no();S.wrongs++;if(!S.missed.includes(S.queue[S.idx].id))S.missed.push(S.queue[S.idx].id);S.hint=[pick(ALMOST),h||'נסי שוב, את יכולה!'];render()}
+function solve(){S.solved=true;S.hint=null;S.praise=pick(PRAISE);save.leaves++;S.leaves++;persist();updHeader();snd.ok();burst();render()}
+function next(){snd.tap();if(S.idx+1<S.queue.length){S.idx++;newQ()}else finish()}
+
+function finish(){
+ const t=S.topic;scrollTo(0,0);
+ if(S.missed.length){
+  app.innerHTML=`<div class="card end"><div class="big">🔍</div><h2>כמעט הגענו לאוצר!</h2><p>אספת ${S.leaves} עלי זהב במסע הזה 🍂</p><p>יש כמה שאלות שכדאי לתרגל שוב – ואז תיבת האוצר תיפתח!</p>
+  <button class="next" id="fix">בואי נתקן יחד את מה שהתפספס! 💪</button><button class="ghost" id="home">🏠 חזרה למפה</button></div>`;
+  document.getElementById('fix').onclick=()=>{snd.tap();const ids=S.missed;S.queue=S.topic.questions.filter(q=>ids.includes(q.id));S.missed=[];S.idx=0;S.fixing=true;newQ()};
+ }else{
+  const ids=t.id==='all'?['all',...TOPICS.map(x=>x.id)]:[t.id];ids.forEach(i=>{if(!save.done.includes(i))save.done.push(i)});persist();
+  app.innerHTML=`<div class="card end"><div class="big">🎁</div><h2>פתחת את תיבת האוצר!</h2><p>השלמת את כל המסע – 100%! 🎉</p><div class="badge">🏅 ${esc(t.badge)}</div><p>התג נוסף לתיק שלך 🎒</p>
+  <button class="next" id="home2">🏠 חזרה למפה</button><button class="ghost" id="again">🔄 לשחק שוב</button></div>`;
+  document.getElementById('home2').onclick=()=>{snd.tap();home()};document.getElementById('again').onclick=()=>{snd.tap();start(t.id)};
+  snd.win();bigBurst();
+ }
+ const h=document.getElementById('home');if(h)h.onclick=()=>{snd.tap();home()};
+}
+
+// ---------- התיק ----------
+function bag(){
+ snd.tap();const all=[...TOPICS,ALL];const d=document.createElement('div');d.className='modal';
+ d.innerHTML=`<div class="sheet" role="dialog" aria-label="התיק של חוקרת בעלי החיים"><h2>🎒 התיק של חוקרת בעלי החיים</h2><div class="leafcount">🍂 ${save.leaves} עלי זהב</div>
+ <div class="badges">${all.map(t=>{const on=save.done.includes(t.id);return `<div class="bd ${on?'on':'off'}"><span class="e">${on?'🏅':t.emoji}</span><b>${esc(t.badge)}</b><div style="font-size:.85rem">${on?'נאסף!':'עוד לא נאסף'}</div></div>`}).join('')}</div>
+ <button class="next" id="closeBag">סגירה</button><button class="reset" id="reset">איפוס התקדמות</button></div>`;
+ document.body.appendChild(d);const close=()=>d.remove();
+ d.onclick=e=>{if(e.target===d)close()};d.querySelector('#closeBag').onclick=()=>{snd.tap();close()};
+ const r=d.querySelector('#reset');let armed=false;r.onclick=()=>{if(!armed){armed=true;r.textContent='בטוח? לחצי שוב כדי למחוק את כל העלים והתגים';return}save.leaves=0;save.done=[];persist();updHeader();close();if(!S)home()};
+}
+
+document.getElementById('bagBtn').onclick=bag;
+document.getElementById('muteBtn').onclick=()=>{save.muted=!save.muted;persist();updHeader();snd.tap()};
+updHeader();home();
+})();
+</script>
+</body>
+</html>
